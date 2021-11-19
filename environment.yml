@@ -1,0 +1,12 @@
+name: blockchain-by-python
+dependencies:
+  - python
+  - jupyter
+  - notebook
+  - pycryptodome
+  - pip
+  - pip:
+    - requests
+    - pandas
+    - matplotlib
+    
