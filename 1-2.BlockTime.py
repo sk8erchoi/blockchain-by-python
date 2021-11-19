@@ -6,17 +6,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 print("금일 생성된 블록일 읽어옵니다")
-url = 'https://blockchain.info/blocks?format=json'
+url = 'https://blockchain.info/latestblock'
 resp = requests.get(url=url)
 data = resp.json()
 
 header = []
-block = data['blocks']
-for n in range(len(block)):
-    height = block[n]['height']
-    btime = block[n]['time']
-    bhash = block[n]['hash']
-    header.append([height, btime, bhash])
+# block = data['blocks']
+# for n in range(len(block)):
+    # height = block[n]['height']
+    # btime = block[n]['time']
+    # bhash = block[n]['hash']
+    # header.append([height, btime, bhash])
+
+height = data['height']
+btime = data['time']
+bhash = data['hash']
+header.append([height, btime, bhash])
 
 # 어제 생성된 블록을 읽어온다.
 stime = btime - 24 * 60 * 60
@@ -31,7 +36,8 @@ for nDay in range(0, 10):
     resp = requests.get(url=url)
     data = resp.json()
     
-    block = data['blocks']
+    #block = data['blocks']
+    block = data
     for n in range(len(block)):
         height = block[n]['height']
         btime = block[n]['time']
