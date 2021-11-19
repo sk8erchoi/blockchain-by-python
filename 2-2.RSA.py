@@ -1,5 +1,6 @@
 # 파이썬 실습 파일: 2-2.RSA.py
 from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
 
 # Private key와 Public key 쌍을 생성한다.
 # Private key는 소유자가 보관하고, Public key는 공개한다. 
@@ -21,15 +22,20 @@ print("원문 :")
 print(plainText)
 
 # 공개키로 원문을 암호화한다.
-cipherText = pubKey.encrypt(plainText.encode(), 10)
+#cipherText = pubKey.encrypt(plainText.encode(), 10)
+encryptor = PKCS1_OAEP.new(pubKey)
+cipherText = encryptor.encrypt(plainText.encode())
 print("\n")
 print("암호문 :")
-print(cipherText[0].hex())
+#print(cipherText[0].hex())
+print(cipherText)
 
 # Private key를 소유한 수신자는 자신의 Private key로 암호문을 해독한다.
 # pubKey와 쌍을 이루는 privKey 만이 이 암호문을 해독할 수 있다.
 key = RSA.importKey(privKey)
-plainText2 = key.decrypt(cipherText) 
+#plainText2 = key.decrypt(cipherText) 
+decrypter = PKCS1_OAEP.new(key)
+plainText2 = decrypter.decrypt(cipherText)
 plainText2 = plainText2.decode()
 print("\n")
 print("해독문 :")
