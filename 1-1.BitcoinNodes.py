@@ -12,7 +12,7 @@ else:
     n = []
     for page in range(1, nPage):
         # 페이지 당 100개 씩 요청한다. (Max = 100)
-        url = 'https://bitnodes.earn.com/api/v1/snapshots/?limit=100&page=' + str(page)
+        url = 'https://bitnodes.io/api/v1/snapshots/?limit=100&page=' + str(page)
         resp = requests.get(url=url)
         data = resp.json()
         print("page %d loaded." % page)
