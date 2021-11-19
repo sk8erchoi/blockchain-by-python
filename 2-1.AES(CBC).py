@@ -28,15 +28,15 @@ ivcopy = np.copy(iv) # 수신자에게 보낼 복사본
 
 # 송신자는 secretKey와 iv로 plainText를 암호문으로 변환한다.
 iv = Random.new().read(AES.block_size)
-ivcopy = np.copy(iv)
+ivcopy = np.copy(iv, order='C')
 aes = AES.new(secretKey, AES.MODE_CBC, iv)
-cipherText = aes.encrypt(plainText)
+cipherText = aes.encrypt(plainText.encode())
 print("\n\n\n")
 print("암호문 :")
 print(cipherText.hex())
 
 # 암호문, secretKey, ivcopy를 수신자에게 보내면, 수신자는 암호문을 해독할 수 있다.
-aes = AES.new(secretKey, AES.MODE_CBC, ivcopy)
+aes = AES.new(secretKey, AES.MODE_CBC, iv)
 plainText2 = aes.decrypt(cipherText)
 plainText2 = plainText2.decode()
 print("\n\n\n")
